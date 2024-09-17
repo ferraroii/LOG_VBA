@@ -8,9 +8,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 
-        Public tipo As String
-        Public tempo_att As String
-        Dim ztext As String
+       Dim ztext As String
         Dim zpasta As String
         Dim arquivo As String
 
@@ -42,5 +40,3 @@ Attribute VB_Exposed = False
             FileToWrite.WriteLine Now & " - " & ztext
             FileToWrite.Close
         End Sub
-
-
