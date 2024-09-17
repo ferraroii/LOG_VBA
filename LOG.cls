@@ -7,53 +7,40 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'Public pasta As String
-Public tipo As String
-Public tempo_att As String
-Dim ztext As String
-Dim zpasta As String
-Dim bool As Boolean
-Dim arquivo As String
 
-Public Property Let pasta(value)
-zpasta = value
-End Property
+        Public tipo As String
+        Public tempo_att As String
+        Dim ztext As String
+        Dim zpasta As String
+        Dim arquivo As String
 
-Public Property Let text(value)
-ztext = value
-End Property
+        Public Property Let pasta(value)
+            zpasta = value
+        End Property
+        
+        Public Property Let text(value)
+            ztext = value
+        End Property
+        
+        Private Property Get arq() As String
+            arq = arquivo
+        End Property
 
-Private Property Get arq() As String
-arq = arquivo
-End Property
+        Function criar_log()
+            Set fs = CreateObject("Scripting.FileSystemObject")
+            arquivo = zpasta & "\log" & Format(Now, "_ddmmyyyy_hhmmss") & ".txt"
+            Set a = fs.CreateTextFile(arquivo, True)
+            a.WriteLine Now & " - Log criado"
+            a.Close
+            criar_log = arquivo
+        End Function
 
-Function criar_log()
-
-    Set fs = CreateObject("Scripting.FileSystemObject")
-    
-    arquivo = zpasta & "\log" & Format(Now, "_ddmmyyyy_hhmmss") & ".txt"
-    Set a = fs.CreateTextFile(arquivo, True)
-    
-    a.WriteLine Now & " - Log criado"
-    a.Close
-    
-    criar_log = arquivo
-    
-End Function
-
-Sub escrever_log()
-
-Dim FSO As New FileSystemObject
-
-Set FSO = CreateObject("Scripting.FileSystemObject")
-
-Set FileToWrite = FSO.OpenTextFile(arq, ForAppending)
-
-FileToWrite.WriteLine Now & " - " & ztext
-
-FileToWrite.Close
-
-End Sub
-
+        Sub escrever_log()
+            Dim FSO As New FileSystemObject
+            Set FSO = CreateObject("Scripting.FileSystemObject")
+            Set FileToWrite = FSO.OpenTextFile(arq, ForAppending)
+            FileToWrite.WriteLine Now & " - " & ztext
+            FileToWrite.Close
+        End Sub
 
 
